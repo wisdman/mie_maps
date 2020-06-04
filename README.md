@@ -1,4 +1,5 @@
-# maps
+# mie_maps
+Тач с картами разных годов для Музея Истории Екатеринбурга
 
 ## Project setup
 ```
@@ -22,3 +23,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
