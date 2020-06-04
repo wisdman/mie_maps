@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "draggable-vue-directive": "^2.1.0",
+    "element-ui": "^2.13.2",
+    "vue": "^2.6.11",
+    "vue2-hammer": "^2.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
