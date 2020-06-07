@@ -69,6 +69,8 @@ export default {
             "image": "/images/building1.jpg",
             "description": "some description",
             "coord": [200, 200],
+            "delta": [0,0],
+            "scale": 1,
             "year": 1920
         },
         {
@@ -76,6 +78,8 @@ export default {
             "image": "/images/building2.jpg",
             "description": "some description",
             "coord": [300, 300],
+            "delta": [0,0],
+            "scale": 1,
             "year": 1950
         },
         {
@@ -83,6 +87,8 @@ export default {
             "image": "/images/building3.jpg",
             "description": "some description",
             "coord": [100, 300],
+            "delta": [0,0],
+            "scale": 1,
             "year": 1850
         }
     ]

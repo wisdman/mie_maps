@@ -31,7 +31,8 @@ export default {
   data: () => { return {
     last_posX: 0,
     last_posY: 0,
-    last_scale: 1
+    last_scale: 1,
+    moving: false
   }},
   computed: {
     opacityStyle: function() {
@@ -51,13 +52,22 @@ export default {
 
   },
   mounted: function() {
-    window.addEventListener("pointerdown", (e) => {
-      console.log(e)
-      const pinchZoomStyle = getComputedStyle(document.querySelector("pinch-zoom"))
-      // [x,y,zoom]
-      const coordArr = [pinchZoomStyle.getPropertyValue('--x'),pinchZoomStyle.getPropertyValue('--y'),pinchZoomStyle.getPropertyValue('--scale')]
-      this.$emit("change", coordArr)
+    window.addEventListener("pointerdown", () => {
+      this.moving = true;
+    })
+    window.addEventListener("pointermove", () => {
+      if(this.moving) {
+        const pinchZoomStyle = getComputedStyle(document.querySelector("pinch-zoom"))
+        // [x,y,zoom]
+        const coordArr = [parseInt(pinchZoomStyle.getPropertyValue('--x')),parseInt(pinchZoomStyle.getPropertyValue('--y')),pinchZoomStyle.getPropertyValue('--scale')]
+        this.$emit("change", coordArr)
+      }
     });
+    window.addEventListener("pointerup", () => {
+      if(this.moving) {
+        this.moving = false
+      }
+    })
   }
 }
 </script>

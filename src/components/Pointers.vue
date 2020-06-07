@@ -1,7 +1,7 @@
 <template>
 <div class="marks">
-  <div v-for="(point, index) in pointers" v-bind:key="index">
-    <div class="mark" :style="getStyle(point.coord)">
+  <div v-for="(point, index) in newpointers" v-bind:key="index">
+    <div class="mark" :style="getStyle(point)">
     <svg width="40px" height="40px" viewBox="0 0 139 139" xmlns="http://www.w3.org/2000/svg"><circle cx="69.5" cy="54.5" r="35.2" stroke="#000" stroke-miterlimit="10"/><circle cx="69.5" cy="54.5" r="20.8" fill="#fff"/><path d="M70 121l-3-1C29 76 34 55 34 55s11 35 36 35M70 121l2-1c38-44 33-65 33-65S94 90 70 90"/></svg>
     </div>
   </div>
@@ -32,7 +32,8 @@ export default {
     },
   },
   data: () => { return {
-    _transform: []
+    _transform: [],
+    newpointers: []
   }},
   computed: {
 
@@ -46,19 +47,29 @@ export default {
     },
 
     transformPoints: function() {
-      console.log("onmove", this._transform)
-      this.pointers.forEach((pointer) => {
-        pointer.coord[0]+=this._transform[0]
-        pointer.coord[1]+=this._transform[1]
+      console.log(this.pointers)
+      
+      this.pointers.forEach((pointer, index) => {
+        pointer.delta = [
+          this._transform[0], 
+          this._transform[1]
+        ]
+        pointer.scale = this._transform[2]
+        this.$set(this.newpointers, index, pointer)
       })
     },
 
-    getStyle(coord) {
-      return `left: ${coord[0]}px; top: ${coord[1]}px;`
+    getStyle(point) {
+      if(point) {
+        //return `left: ${point.coord[0]*point.scale + point.delta[0]}px; top: ${point.coord[1]*point.scale + point.delta[1]}px;`
+        return `transform: translateX(${point.coord[0]*point.scale + point.delta[0]}px) translateY(${point.coord[1]*point.scale + point.delta[1]}px);`
+      }
+      else return ""
     }
   },
-  mounted: function() {
+  created: function() {
     //this.placePoints();
+    this.newpointers = this.pointers.map(v => ({ ...v, coord:[...v.coord] }))
   },
   watch: {
     transform: function(newVal) {
